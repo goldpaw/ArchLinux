@@ -1,0 +1,21 @@
+pre_install() {
+	systemctl stop inputattach
+	systemctl disable inputattach
+}
+
+post_install() {
+	systemctl start inputattach
+	systemctl enable inputattach
+}
+
+pre_upgrade() {
+	pre_install
+}
+
+post_upgrade() {
+	post_install
+}
+
+post_remove() {
+	pre_install
+}

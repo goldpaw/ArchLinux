@@ -5,5 +5,5 @@
 # An inputattach instance will be started for each element.
 
 IAPARAMS=(
-  "--wacom_iv /dev/ttyS0"
+	"--wacom_iv /dev/ttyS0"
 )

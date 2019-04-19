@@ -16,7 +16,7 @@ replaces=('joystick' 'inputattach')
 install="${pkgname}.install"
 optdepends=('sdl: for ffmvforce utility')
 source=(
-	"$pkgname-$pkgver::https://github.com/goldpaw/$_pkgname/archive/release-$pkgver.tar.gz"
+	"https://github.com/goldpaw/$_pkgname/archive/release-$pkgver.tar.gz"
 	'inputattach.conf.d'
 	'inputattach.service'
 	'inputattachctl'
@@ -29,17 +29,17 @@ sha256sums=(
 )
 
 prepare() {
-	cd "${srcdir}"/"$pkgname-$pkgver"
+	cd "${srcdir}"/"$_pkgname-release-$pkgver"
 	sed -i 's|lib/udev|usr/lib/udev|g' utils/Makefile
 }
 
 build() {
-	cd "${srcdir}"/"$pkgname-$pkgver"
+	cd "${srcdir}"/"$_pkgname-release-$pkgver"
 	make PREFIX=/usr
 }
 
 package() {
-	cd "${srcdir}"/"$pkgname-$pkgver"
+	cd "${srcdir}"/"$_pkgname-release-$pkgver"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 
 	install -Dm755 "$srcdir"/inputattachctl "$pkgdir"/usr/bin/inputattachctl
