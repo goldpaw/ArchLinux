@@ -1,0 +1,48 @@
+# Maintainer: Lars Norberg <packages@larsnorbergofficial.com>
+
+pkgname=wacom-serial-rt-lts
+_pkgname=wacom_serial5
+pkgver=1.1.4
+pkgrel=1
+pkgdesc="Kernel module for Wacom protocol IV and V serial tablets."
+arch=('x86_64')
+url="https://github.com/goldpaw/wacom_serial5"
+license=('GPL')
+makedepends=('sdl')
+install="${pkgname}.install"
+depends=(
+	'linuxconsole-five'
+	'linux-rt-lts'
+	'linux-rt-lts-headers'
+)
+optdepends=('sdl: for ffmvforce utility')
+source=(
+	"https://github.com/goldpaw/$_pkgname/archive/$pkgver-Release.tar.gz"
+	'70-wacom-serial.conf'
+	'70-wacom-serial.rules'
+)
+sha256sums=(
+	'SKIP'
+	'SKIP'
+	'SKIP'
+)
+
+build() {
+	cd "${srcdir}"/"$_pkgname-$pkgver-Release"
+
+	make PREFIX=/usr 
+	#make PREFIX=/usr 
+}
+
+package() {
+
+	cd "${srcdir}"/"$_pkgname-$pkgver-Release"
+	make PREFIX=/usr DESTDIR="${pkgdir}" all
+
+	# install rules and conf
+	install -Dm644 "$srcdir"/70-wacom-serial.rules "$pkgdir"/etc/udev/rules.d/70-wacom-serial.rules
+	install -Dm644 "$srcdir"/70-wacom-serial.rules "$pkgdir"/etc/X11/xorg.conf.d/70-wacom-serial.conf
+
+	# install the kernel module
+	install -Dm644 "$srcdir"/"$_pkgname-$pkgver-Release"/wacom_serial5.ko "$pkgdir"$(readlink -f /lib/modules/$(uname -r)/extramodules)/wacom_serial5.ko
+}
