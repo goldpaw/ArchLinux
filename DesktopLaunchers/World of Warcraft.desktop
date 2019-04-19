@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=World of Warcraft
+Comment=Play World of Warcraft using default settings. 
+Exec="/home/lars/Development/ArchLinux/BashScripts/worldofwarcraft.sh"
+Icon=/home/lars/Pictures/Icons/wow_cata_icon3.png
+Terminal=true
+Type=Application
+Categories=Game;

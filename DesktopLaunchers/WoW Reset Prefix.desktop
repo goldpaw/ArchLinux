@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=WoW-D3D12 (Reset)
+Comment=Play World of Warcraft using DirectX12 + Reset Wine Prefixes
+Exec="/home/lars/Development/ArchLinux/BashScripts/worldofwarcraft.sh" --d3d12 --resetprefix
+Icon=/home/lars/Pictures/Icons/wow_cata_icon3.png
+Terminal=true
+Type=Application
+Categories=Game;
