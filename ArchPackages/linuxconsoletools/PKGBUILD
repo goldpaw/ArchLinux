@@ -1,0 +1,48 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
+# Maintainer: Lars Norberg <packages@larsnorbergofficial.com>
+
+pkgname=linuxconsole-five
+_pkgname=linuxconsole-wacom5
+pkgver=1.6.2
+pkgrel=2
+pkgdesc="Set of utilities for joysticks and serial devices, patched for wacom protocol IV and V serial tablets."
+arch=('x86_64')
+url="https://github.com/goldpaw/linuxconsole-wacom5"
+license=('GPL')
+makedepends=('sdl')
+provides=('joystick' 'inputattach')
+replaces=('joystick' 'inputattach')
+install="${pkgname}.install"
+optdepends=('sdl: for ffmvforce utility')
+source=(
+	"$pkgname-$pkgver::https://github.com/goldpaw/$_pkgname/archive/release-$pkgver.tar.gz"
+	'inputattach.conf.d'
+	'inputattach.service'
+	'inputattachctl'
+)
+sha256sums=(
+	'SKIP'
+	'SKIP'
+	'SKIP'
+	'SKIP'
+)
+
+prepare() {
+	cd "${srcdir}"/"$pkgname-$pkgver"
+	sed -i 's|lib/udev|usr/lib/udev|g' utils/Makefile
+}
+
+build() {
+	cd "${srcdir}"/"$pkgname-$pkgver"
+	make PREFIX=/usr
+}
+
+package() {
+	cd "${srcdir}"/"$pkgname-$pkgver"
+	make PREFIX=/usr DESTDIR="${pkgdir}" install
+
+	install -Dm755 "$srcdir"/inputattachctl "$pkgdir"/usr/bin/inputattachctl
+	install -Dm644 "$srcdir"/inputattach.conf.d "$pkgdir"/etc/conf.d/inputattach
+	install -Dm644 "$srcdir"/inputattach.service "$pkgdir"/usr/lib/systemd/system/inputattach.service
+}
