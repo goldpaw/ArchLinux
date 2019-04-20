@@ -4,10 +4,10 @@
 clear
 
 # where our libraries are located
-libPath=~/'Development/WoW Projects/AzeriteUI/AzeriteUI/back-end'
+libPath=~/'Documents/Development/WoW Projects/AzeriteUI/AzeriteUI/back-end'
 
 # where our source addon files are located
-wowProjects=~/'Development/WoW Projects'
+wowProjects=~/'Documents/Development/WoWProjects'
 
 # iterate through the project folder
 for dir in "$wowProjects"/*/								

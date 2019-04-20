@@ -4,7 +4,7 @@
 clear
 
 # where our source addon files are located
-wowProjects=~/'Development/WoW Projects'
+wowProjects=~/'Documents/Development/WoWProjects'
 
 # where our addons folder is located
 wowAddons=~/'Games/World of Warcraft/_retail_/Interface/AddOns'
