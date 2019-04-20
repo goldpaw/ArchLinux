@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Configure Wacom Tablet
+Comment=Configure my Wacom Tablet properly for my monitor. 
+Exec="/home/lars/Documents/Development/ArchLinux/BashScripts/wacom_delayed.sh"
+Icon=input-tablet
+Terminal=true
+Type=Application
+Categories=Utility;
