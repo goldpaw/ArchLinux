@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Launch Jack
+Comment=Launch jack audio server. 
+Exec="/home/lars/Documents/Development/ArchLinux/BashScripts/jack-startup.sh"
+Icon=input-tablet
+Terminal=true
+Type=Application
+Categories=Utility;
