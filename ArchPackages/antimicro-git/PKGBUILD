@@ -1,0 +1,43 @@
+# Maintainer: Lars Norberg <packages@larsnorbergofficial.com>
+# Maintainer: Fredy García <frealgagu at gmail dot com>
+# Contributor: grimi <grimi at poczta dot fm>
+# Contributor: Thomas Nordenmark <t.nordenmark@gmail.com>
+# Contributor: Travis Nickles <nickles.travis@gmail.com>
+
+pkgname=antimicro-git
+_pkgname=antimicro
+pkgver=2.24.1
+pkgrel=3
+pkgdesc="Graphical program used to map keyboard keys and mouse controls to a gamepad"
+arch=('x86_64')
+url="https://github.com/goldpaw/$_pkgname"
+license=('GPL3')
+depends=('desktop-file-utils' 'hicolor-icon-theme' 'libxtst' 'qt5-base' 'sdl2')
+makedepends=('cmake' 'extra-cmake-modules' 'gettext' 'itstool' 'qt5-tools')
+provides=('antimicro')
+replaces=('antimicro')
+source=(
+	"git+https://github.com/goldpaw/$_pkgname.git"
+)
+sha256sums=(
+	'SKIP'
+)
+
+build() {
+  cd "${srcdir}/${_pkgname}"
+
+  cmake . \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DUSE_SDL_2=ON \
+    -DAPPDATA=ON \
+    -DWITH_UINPUT=ON \
+    -DWITH_X11=ON \
+    -DWITH_XTEST=ON
+  make
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}"
+  make DESTDIR="${pkgdir}" install
+}
