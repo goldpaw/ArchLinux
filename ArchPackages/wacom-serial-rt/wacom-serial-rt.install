@@ -1,0 +1,21 @@
+pre_install() {
+	systemctl stop inputattach
+}
+
+post_install() {
+	depmod -a
+	systemctl start inputattach
+}
+
+pre_upgrade() {
+	rmmod wacom_serial5
+	pre_install
+}
+
+post_upgrade() {
+	post_install
+}
+
+post_remove() {
+	pre_upgrade
+}
