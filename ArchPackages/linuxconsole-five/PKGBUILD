@@ -5,7 +5,7 @@
 pkgname=linuxconsole-five
 _pkgname=linuxconsole-wacom5
 pkgver=1.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Set of utilities for joysticks and serial devices, patched for wacom protocol IV and V serial tablets."
 arch=('x86_64')
 url="https://github.com/goldpaw/linuxconsole-wacom5"
@@ -20,8 +20,12 @@ source=(
 	'inputattach.conf.d'
 	'inputattach.service'
 	'inputattachctl'
+	'70-wacom-serial.conf'
+	'70-wacom-serial.rules'
 )
 sha256sums=(
+	'SKIP'
+	'SKIP'
 	'SKIP'
 	'SKIP'
 	'SKIP'
@@ -41,6 +45,12 @@ build() {
 package() {
 	cd "${srcdir}"/"$_pkgname-release-$pkgver"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
+
+	# might seem strange to put these in this package, 
+	# but they are required by multiple kernel versions of the wacom module, 
+	# so to avoid failed installation attempts from existing files, we put them here. 
+	install -Dm644 "$srcdir"/70-wacom-serial.rules "$pkgdir"/etc/udev/rules.d/70-wacom-serial.rules
+	install -Dm644 "$srcdir"/70-wacom-serial.conf "$pkgdir"/etc/X11/xorg.conf.d/70-wacom-serial.conf
 
 	install -Dm755 "$srcdir"/inputattachctl "$pkgdir"/usr/bin/inputattachctl
 	install -Dm644 "$srcdir"/inputattach.conf.d "$pkgdir"/etc/conf.d/inputattach

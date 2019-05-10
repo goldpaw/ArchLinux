@@ -6,6 +6,7 @@ pre_install() {
 post_install() {
 	systemctl start inputattach
 	systemctl enable inputattach
+	systemctl daemon-reload
 }
 
 pre_upgrade() {
@@ -18,4 +19,5 @@ post_upgrade() {
 
 post_remove() {
 	pre_install
+	systemctl daemon-reload
 }
