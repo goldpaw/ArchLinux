@@ -20,9 +20,11 @@ winePrefixFolder=''
 # wine folder paths
 winePathStagingPlain=/opt/'wine-tkg-git-staging-plain-4.6.r3.g36e84f29'/bin
 #winePathD3D11=/opt/'wine-tkg-git-dxvk-4.6.r3.g36e84f29'/bin
-winePathD3D11=/opt/'wine-tkg-git-d9vk-dxvk-dxgi-faudio-4.7.r2.g8f334777'/bin
+#winePathD3D11=/opt/'wine-tkg-git-d9vk-dxvk-dxgi-faudio-4.7.r2.g8f334777'/bin
+winePathD3D11=/opt/'wine-tkg-git-d9vk-dxvk-dxgi-faudio-4.7.r26.g082a898a'/bin
 #winePathD3D12=/opt/'wine-tkg-git-vkd3d-4.6.r3.g36e84f29'/bin
-winePathD3D12=/opt/'wine-tkg-git-d9vk-dxvk-vkd3d-faudio-4.7.r2.g8f334777'/bin
+#winePathD3D12=/opt/'wine-tkg-git-d9vk-dxvk-vkd3d-faudio-4.7.r2.g8f334777'/bin
+winePathD3D12=/opt/'wine-tkg-git-d9vk-dxvk-vkd3d-faudio-4.7.r26.g082a898a'/bin
 
 # wine prefix folders
 WoW_D3D11='WoW_D3D11'
