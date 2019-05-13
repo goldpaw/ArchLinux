@@ -32,14 +32,14 @@ then
 fi 
 
 # iterate through the project folder
-for dir in "$projectPath"/*/								
+for dir in "$projectPath"/*/
 do
 	
 	# full path to the addon project directory
 	projectDir=${dir%*/}
 
 	# iterate project directory for sub-directories
-	for subDir in "$projectDir"/*/								
+	for subDir in "$projectDir"/*/
 	do
 		# full path to the addon project directory
 		projectPath=${subDir%*/}
