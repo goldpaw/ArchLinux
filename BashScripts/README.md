@@ -10,6 +10,9 @@ A script I grabbed from somewhere I don't remember to properly kill all prosesse
 ## makelinks.sh  
 Scans my WoWProject folder for addons with toc files, and symlinks those addons to the WoW game addon folder. Will overwrite any existing links, folders or files found in the game directory, but don't do anything to the WoW project directory. 
 
+## syncprojects.sh  
+Copies and syncs selected projects to the World of Warcraft addon folders. Had to make this one since symlinks for no apparent reason stopped working in WoW sometime in May 2019. 
+
 ## wacom.sh  
 My little script to setup my dinosaur old Wacom Intuos GD-0912-R serial protocol 5 tablet. It retrieves the current monitor, screen size, tablet size and area and calculates a setup that gives me a correct aspect ratio when using it. Some values are hardcoded into this file, and like everything else here or related to my wacom drivers this is NOT suited for public consumption or releases.  
 
