@@ -50,39 +50,38 @@ do
 	# iterate project directory for sub-directories
 	for subDir in "$projectDir"/*/
 	do
-		# full path to the addon project directory
+		# full path to the addon directory
 		projectPath=${subDir%*/}
 
-		# name of the addon project directory
+		# name of the addon directory
 		projectName=${projectPath##*/}
-
-		# name of the addon project directory
-		addonDir=${projectPath##*/}
 
 		if [ "${targetProjects["$projectName"]}" == "true" ]
 		then
 
 			# path to the destionation addon directory or symlink
-			addonPath="$wowAddons/$addonDir" 
+			addonPath="$wowAddons/$projectName" 
 
-			# does a directory, file or symlink exist at the destionation?
+			# does a file or symlink exist at the destionation?
 			if [ -f "$addonPath" ] || [ -L "$addonPath" ]
 			then 
 				echo "......Clearing out the old: $projectName"
 				rm -rf "$addonPath"
 			fi 
 
+			# create the directory if it's missing
 			if [ ! -d "$addonPath" ]
 			then 
 				echo "......Creating directory: $projectName"
 				mkdir "$addonPath"
 			fi 
 
+			# should always be true, but checking just 
+			# in case something went wrong earlier. 
 			if [ -d "$addonPath" ]
 			then 
 				echo "......Syncing $projectName"
 				rsync -r -u "$projectPath"/* "$addonPath" 
-				#rsync --progress -r -u "$projectPath"/* "$addonPath" 
 			fi 
 
 		fi 
