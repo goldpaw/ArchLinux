@@ -11,6 +11,7 @@ sourceProject='AzeriteUI'
 # I need this when I accidentally delete 
 # the libraries without adding them back in. 
 declare -A targetProjects=( 
+	["DiabolicOrbs"]="true" 
 	["GoldieSix"]="true" 
 	["SimpleClassPower"]="true"
 )

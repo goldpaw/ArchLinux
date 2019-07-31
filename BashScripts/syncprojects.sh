@@ -12,6 +12,7 @@ declare -A targetProjects=(
 	["Bagnon_ItemInfo"]="true" 
 	["Bagnon_ItemLevel"]="true" 
 	["Bagnon_Uncollected"]="true" 
+	["DiabolicOrbs"]="true" 
 	["DiabolicUI"]="true" 
 	["GoldieSix"]="true" 
 	["GoldpawUI"]="true" 
@@ -46,24 +47,30 @@ do
 	
 	# full path to the addon project directory
 	projectDir=${dir%*/}
+	projectParentName=${projectDir##*/}
 
 	# iterate project directory for sub-directories
 	for subDir in "$projectDir"/*/
 	do
+
 		# full path to the addon directory
 		projectPath=${subDir%*/}
 
 		# name of the addon directory
 		projectName=${projectPath##*/}
 
-		if [ "${targetProjects["$projectName"]}" == "true" ]
+		#echo "$projectParentName :: $projectName"
+
+		if [ "${targetProjects["$projectName"]}" == "true" ] && [ $projectParentName != "AzeriteUI_Classic" ]
 		then
+
+			echo ""
 
 			# path to the destionation addon directory or symlink
 			addonPath="$wowAddons/$projectName" 
 
 			# does a file or symlink exist at the destionation?
-			if [ -f "$addonPath" ] || [ -L "$addonPath" ]
+			if [ -f "$addonPath" ] || [ -L "$addonPath" ] || [ -d "$addonPath" ]
 			then 
 				echo "......Clearing out the old: $projectName"
 				rm -rf "$addonPath"
@@ -89,5 +96,5 @@ do
 done 
 
 read -rp "Press Enter to exit!"
-clear
+#clear
 exit 0
