@@ -1,0 +1,33 @@
+# Maintainer: Lars Norberg <packages@larsnorbergofficial.com>
+
+pkgname=wacom-serial-lts
+_pkgname=wacom_serial5
+pkgver=1.1.4
+pkgrel=1
+pkgdesc="Kernel module for Wacom protocol IV and V serial tablets."
+arch=('x86_64')
+url="https://github.com/goldpaw/wacom_serial5"
+license=('GPL')
+makedepends=('sdl')
+install="${pkgname}.install"
+depends=(
+	'linuxconsole-five' 
+	'linux-lts' 
+	'linux-lts-headers'
+)
+optdepends=('sdl: for ffmvforce utility')
+source=("https://github.com/goldpaw/$_pkgname/archive/$pkgver-Release.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+	cd "${srcdir}"/"$_pkgname-$pkgver-Release"
+	make PREFIX=/usr 
+}
+
+package() {
+	cd "${srcdir}"/"$_pkgname-$pkgver-Release"
+	make PREFIX=/usr DESTDIR="${pkgdir}" all
+
+	# install the kernel module
+	install -Dm644 "$srcdir"/"$_pkgname-$pkgver-Release"/wacom_serial5.ko "$pkgdir"$(readlink -f /lib/modules/$(uname -r)/extramodules)/wacom_serial5.ko
+}

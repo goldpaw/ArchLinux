@@ -3,26 +3,34 @@
 # tidy!
 clear
 
-# Name of the source project
-# This will never be deleted. Again. /facepalm
-sourceProject='AzeriteUI'
-
-# Name of known target projects
-# I need this when I accidentally delete 
-# the libraries without adding them back in. 
-declare -A targetProjects=( 
-	["DiabolicOrbs"]="true" 
-	["GoldieSix"]="true" 
-	["SimpleClassPower"]="true"
-)
-
 # where our source addon files are located
 projectPath=~/'Documents/Development/WoWProjects'
 
-# where our libraries are located
+# Retail paths
+sourceProject='AzeriteUI'
 libPath="$projectPath/$sourceProject/$sourceProject/back-end"
+declare -A targetProjects=( 
+	# full UIs
+	["GoldieSix"]="true" 
+	["LaeviaUI"]="true" 
+	# standalones
+	["Abacus"]="true" 
+	["Backpacker"]="true" 
+	["Blizzkill"]="true" 
+	["Orbs"]="true" 
+	["SimpleClassPower"]="true"
+	# plugins
+	["AzeriteUI_KuiNameplates"]="true"
+)
 
-if [ ! -d "$libPath" ]
+# Classic paths
+sourceProjectClassic='AzeriteUI_Classic'
+libPathClassic="$projectPath/$sourceProjectClassic/$sourceProjectClassic/back-end"
+declare -A targetProjectsClassic=( 
+)
+
+# Make sure our source paths are valid
+if [ ! -d "$libPath" ] || [ ! -d "$libPathClassic" ]
 then
 	echo "Source libraries are missing!"
 	echo "Path: $libPath"
@@ -53,25 +61,23 @@ do
 
 		#echo "$backEnd"
 
+		# copy to Retail projects
 		if [ -d "$backEnd" ] || [ "${targetProjects["$projectName"]}" == "true" ]
 		then
 
-			if [ "$backEnd" != "$libPath" ] && [ "$projectName" != "$sourceProject" ]
+			if [ "$backEnd" != "$libPath" ] && [ "$backEnd" != "$libPathClassic" ] && [ "$projectName" != "$sourceProject" ] && [ "$projectName" != "$sourceProjectClassic" ]
 			then
-				echo "...Updating CogWheel libraries in '$projectName'" 
-
-				echo "......Clearing out the old"
+				echo "...Updating libraries in '$projectName'" 
 				rm -rf "$backEnd"
-
-				echo "......Copying over the new"
 				cp -rf "$libPath" "$projectPath"
-
-				echo " "
 			fi 
 		fi 
+
+		# copy to classic projects
+
 	done 
 done 
 
-read -rp "Press Enter to exit!"
-clear
+#read -rp "Press Enter to exit!"
+#clear
 exit 0
