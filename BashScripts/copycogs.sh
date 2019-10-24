@@ -27,6 +27,8 @@ declare -A targetProjects=(
 sourceProjectClassic='AzeriteUI_Classic'
 libPathClassic="$projectPath/$sourceProjectClassic/$sourceProjectClassic/back-end"
 declare -A targetProjectsClassic=( 
+	["ClassicUnitFramesEnhanced"]="true" 
+	["ClassicQuestTrackerEnhanced"]="true"
 )
 
 # Make sure our source paths are valid
@@ -74,6 +76,16 @@ do
 		fi 
 
 		# copy to classic projects
+		if [ -d "$backEnd" ] || [ "${targetProjectsClassic["$projectName"]}" == "true" ]
+		then
+
+			if [ "$backEnd" != "$libPath" ] && [ "$backEnd" != "$libPathClassic" ] && [ "$projectName" != "$sourceProject" ] && [ "$projectName" != "$sourceProjectClassic" ]
+			then
+				echo "...Updating libraries in '$projectName'" 
+				rm -rf "$backEnd"
+				cp -rf "$libPath" "$projectPath"
+			fi 
+		fi 
 
 	done 
 done 
